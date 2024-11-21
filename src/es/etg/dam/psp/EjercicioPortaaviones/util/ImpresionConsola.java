@@ -12,6 +12,6 @@ public class ImpresionConsola extends Impresora{
     
     @Override
     public void imprimir(String contenido) {
-        System.out.println(titulo + "\n\n" + contenido);
+        System.out.println(TITULO + "\n\n" + contenido);
     }
 }
