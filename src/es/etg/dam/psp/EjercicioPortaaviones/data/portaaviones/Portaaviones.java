@@ -15,8 +15,7 @@ public class Portaaviones {
     private static final String MSG_ERROR_AVIONES = "Debe especificar el número de aviones como argumento.";
     private static final String MSG_ERROR_ARGUMENTO = "El argumento proporcionado no es un número válido.";
     private static final String PATH = "bin";
-    private static final String[] COMANDO_BASE = { "java", "-cp", PATH,
-            "es.etg.dam.psp.EjercicioPortaaviones.data.avion.Avion" };
+    private static final String[] COMANDO_BASE = { "java", "-cp", PATH, "es.etg.dam.psp.EjercicioPortaaviones.data.avion.Avion" };
     private static final String PATRON_AVION = "%s en el avión ID: %d";
     private static final String PATRON_ERROR = "%s: %s";
 

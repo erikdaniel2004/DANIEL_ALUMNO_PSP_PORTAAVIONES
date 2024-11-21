@@ -3,7 +3,7 @@ package es.etg.dam.psp.EjercicioPortaaviones.util;
 public class ImpresionConsola extends Impresora{
 
     // Constantes de texto
-    private static final String titulo = "==Misión de aviación==";
+    private static final String TITULO = "==Misión de aviación==";
 
     // Constructor de la clase
     public ImpresionConsola(){

@@ -16,3 +16,80 @@ Análisis y Diseño en Markdown (si se requieren imágenes se puede hacer refere
 Imágenes utilizadas para el análisis y/o diseño
 Código/Pruebas implementadas (se valorará la calidad/claridad/legibilidad del código)
 Fichero pdf con el contenido del fichero Markdown.
+
+## Diseño
+
+```plantuml
+package ".vscode" {
+}
+
+package "bin" {
+}
+
+package "lib" {
+}
+
+package "src.es.etg.dam.psp.EjercicioPortaaviones" {
+    package "data" {
+        package "app" {
+            class App {
+                +main(String[]args)
+            }
+        }
+
+        package "portaaviones" {
+            class Portaaviones {
+                -MSG_ERROR : String
+                -COMANDO : String
+                -PATRONES : String
+                +main(String[]args)
+                -crearComando(int id) : String[]
+            }
+        }
+
+        package "avion" {
+            class Avion {
+                -MSG_CAIDO : String
+                -MSG_COMBATE : String
+                -PATRON : String
+                -main(String[]args)
+            }
+        }
+    }
+
+    package "util" {
+        package "ficheros" {
+            file Informe.md
+        }
+
+        interface Imprimible {
+            #void Imprimir(String contenido)
+        }
+
+        abstract class Impresora {
+            # Titulo : String
+            # Contenido : String
+            + Impresora(String titulo, String contenido)
+            +getTitulo() : String titulo
+            +getContenido() : String contenido
+            +setTitulo(String titulo)
+            +setContenido(String titulo)
+            +abstract void imprimir(String contenido)
+        }
+
+        class FabricaImpresion {
+            +crearImpresora(TipoImpresion impresion) : Impresora impresora
+        }
+
+        class ImpresionConsola {
+            -Titulo : String
+            +void imprimir(String contenido)
+        }
+
+        enum TipoImpresion {
+            CONSOLA
+            MARKDOWN
+        }
+    }
+}
+```
