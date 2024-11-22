@@ -15,11 +15,12 @@ public class Portaaviones {
     private static final String MSG_ERROR_AVIONES = "Debe especificar el número de aviones como argumento.";
     private static final String MSG_ERROR_ARGUMENTO = "El argumento proporcionado no es un número válido.";
     private static final String PATH = "bin";
-    private static final String[] COMANDO_BASE = { "java", "-cp", PATH, "es.etg.dam.psp.EjercicioPortaaviones.data.avion.Avion" };
+    private static final String[] COMANDO_BASE = { "java", "-cp", PATH,
+            "es.etg.dam.psp.EjercicioPortaaviones.data.avion.Avion" };
     private static final String PATRON_AVION = "%s en el avión ID: %d";
     private static final String PATRON_ERROR = "%s: %s";
 
-    public static void main(String[] args) {
+    public static void lanzar(String[] args) {
         if (args.length == 0) {
             System.out.println(MSG_ERROR_AVIONES);
             return;
@@ -30,50 +31,48 @@ public class Portaaviones {
             int numAviones = Integer.parseInt(args[0]);
 
             for (int i = 0; i < numAviones; i++) {
+                procesado(i);
+                
+                // Establece el tiempo de espera antes de lanzar el siguiente avión
                 try {
-                    // Construcción del comando dinámico agregando el ID
-                    String[] comando = crearComando(i);
-
-                    // Ejecución del proceso
-                    Process process = Runtime.getRuntime().exec(comando);
-                    StringBuilder output = new StringBuilder();
-
-                    // Lectura del output del proceso
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        output.append(line).append("\n");
-                    }
-
-                    // Esperar a que termine el proceso y comprobar el código de salida
-                    int exitVal = process.waitFor();
-                    if (exitVal == 0) {
-                        // Impresión del resultado en consola
-                        Impresora impresora = FabricaImpresion.crearImpresora(TipoImpresion.CONSOLA);
-                        impresora.imprimir(output.toString());
-
-                        // Impresión del resultado en formato Markdown
-                        impresora = FabricaImpresion.crearImpresora(TipoImpresion.MARKDOWN);
-                        impresora.imprimir(output.toString());
-                    } else {
-                        System.out.println(String.format(PATRON_AVION, MSG_ERROR, i));
-                    }
-
-                    // Establece el tiempo de espera antes de lanzar el siguiente avión
-                    try {
-                        Thread.sleep((int) (Math.random() * 3000) + 2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                } catch (IOException | InterruptedException ex) {
-                    ex.printStackTrace();
-                    System.out.println(String.format(PATRON_ERROR, MSG_ERROR, ex.getMessage()));
+                    Thread.sleep((int) (Math.random() * 3000) + 2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
 
         } catch (NumberFormatException ex) {
             System.out.println(MSG_ERROR_ARGUMENTO);
+        }
+    }
+
+    private static void procesado(int i) {
+        StringBuilder output = null;
+        try {
+            String[] comando = crearComando(i);
+            Process process = Runtime.getRuntime().exec(comando);
+            output = new StringBuilder();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                output.append(line).append("\n");
+            }
+
+            int exitVal = process.waitFor();
+            if (exitVal == 0) {
+                // Impresión de resultados
+
+                Impresora impresora = FabricaImpresion.crearImpresora(TipoImpresion.CONSOLA);
+                impresora.imprimir(output.toString());
+
+                impresora = FabricaImpresion.crearImpresora(TipoImpresion.MARKDOWN);
+                impresora.imprimir(output.toString());
+            } else {
+                System.out.println(String.format(PATRON_AVION, MSG_ERROR, i));
+            }
+        } catch (IOException | InterruptedException ex) {
+            ex.printStackTrace();
+            System.out.println(String.format(PATRON_ERROR, MSG_ERROR, ex.getMessage()));
         }
     }
 
