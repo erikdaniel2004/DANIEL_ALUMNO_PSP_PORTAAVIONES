@@ -13,8 +13,11 @@ Al final es el **Portaaviones el que recupera las cajas negras** de los aviones 
 Se entregará un fichero zip, no importa el nombre:
 
 Análisis y Diseño en Markdown (si se requieren imágenes se puede hacer referencia a ellas sin insertarlas en el documento). La extensión de este fichero debe ser .md y su pdf de exportación (si se hace con una herramienta distinta a md se subirá el pdf)
+
 Imágenes utilizadas para el análisis y/o diseño
+
 Código/Pruebas implementadas (se valorará la calidad/claridad/legibilidad del código)
+
 Fichero pdf con el contenido del fichero Markdown.
 
 ### Requisitos Funcionales y No Funcionales
